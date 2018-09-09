@@ -25,12 +25,15 @@ class StatsController extends AppController
 
         $start = $today.' 00:00:00';
         $end = $today.' 23:59:59';
+        $sevenDaysAgo = \DateTime::createFromFormat('Y-m-d H:i:s', $end)->sub(new \DateInterval('P7D'))->format('Y-m-d H:i:s');
 
         $flights = TableRegistry::get('Flights');
 
         $flightsData = $flights->find()->where(function ($exp) use($start, $end) {
             return $exp->between('Flights.StartTime', $start, $end); })->contain(['Sessions' => ['Locations']])->order(['Flights.StartTime' => 'desc'])->toList();
 
+        $barChart = $flights->find()->select(['hits' => 'count(*)', 'positions' => 'sum(case when FirstLat not null then 1 else 0 END)', 'dayOfYear' => "strftime('%j', StartTime)"])->where(function ($exp) use($start, $sevenDaysAgo) {
+            return $exp->between('Flights.StartTime', $sevenDaysAgo,$start); })->group("strftime('%j', StartTime)")->toList();
 
         $histogramData = $flights->find()->select(['hits' => 'count(*)', 'positions' => 'sum(case when FirstLat not null then 1 else 0 END)', 'hour' => "strftime('%H', StartTime)" ])
             ->where(function ($exp) use($start, $end) {
@@ -163,6 +166,7 @@ class StatsController extends AppController
 
 
 
-        $this->set(compact('polar', 'range', 'totalHits', 'totalFlights', 'totalPositions', 'aircraftSeen', 'maxDistance', 'hitsData', 'positionsData', 'today'));
+        $this->set(compact('polar', 'range', 'totalHits', 'totalFlights', 'totalPositions', 'aircraftSeen',
+            'maxDistance', 'hitsData', 'positionsData', 'today', 'barChart'));
     }
 }
