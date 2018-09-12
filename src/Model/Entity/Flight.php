@@ -2,6 +2,7 @@
 namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
+use Cake\I18n\FrozenTime;
 
 /**
  * Class Flight
@@ -46,6 +47,7 @@ use Cake\ORM\Entity;
  */
 class Flight extends Entity
 {
+
 
     /**
      * Calculates the great-circle distance between two points, with
