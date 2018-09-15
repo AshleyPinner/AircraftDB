@@ -67,6 +67,7 @@
     }
 </style>
 <?php $column = array_column($barChart, 'dayOfYear');  array_walk($column, function(&$value) {
+    $value -= 1;
     $value = \DateTime::createFromFormat('Y-m-d', '2018-01-01')->add(new \DateInterval("P{$value}D"))->format('D');
 
 }); ?>
