@@ -1,3 +1,4 @@
+<?php /** @var $this Cake\View\View */ ?>
 <!doctype html>
 <html lang="en">
 <head>

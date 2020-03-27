@@ -271,7 +271,7 @@ $(function() {
         },
         title: {text: "Hits and positions reported", align: "left", x: 0, style: {color: "#FFFFFF"}},
         subtitle: {
-            text: dateForCharts,
+            text: Date.parse(dateForCharts),
             align: "right",
             y: 15,
             style: {color: "#6D6D6D"}
@@ -367,4 +367,262 @@ $(function() {
     ]
 });
 
+    $("#contacts").highcharts({
+        chart: {backgroundColor: "#282727", marginBottom: 35, marginTop: 70},
+        credits: {enabled: !1},
+        legend: {
+            borderWidth: 0,
+            itemStyle: {color: "#ffffff", textDecoration: "none", textTransform: "uppercase"},
+            itemHoverStyle: {color: "#ffffff", textDecoration: "underline"},
+            align: "left",
+            verticalAlign: "top",
+            layout: "horizontal",
+            x: -10,
+            y: 20
+        },
+        title: {text: "Histogram", align: "left", x: 0, style: {color: "#FFFFFF"}},
+        subtitle: {
+            text: Date.parse(dateForCharts),
+            align: "right",
+            y: 15,
+            style: {color: "#6D6D6D"}
+        },
+        xAxis: {
+            title: {enabled: !1, text: "Distance", style: {color: "#a4a1a1", fontWeight: "normal"}},
+            categories: ["<50nm", "50-100nm", "100-150nm", "150-200nm", "200>"],
+            labels: {style: {color: "#ffffff", fontSize: "10px"}}
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: "Contacts",
+                style: {color: "#a4a1a1", fontWeight: "normal"},
+                align: "high",
+                offset: 0,
+                rotation: 0,
+                x: 8,
+                y: -15
+            },
+            gridLineWidth: 1,
+            gridLineColor: "#3e3d3d",
+            minorGridLineColor: "#3e3d3d",
+            plotLines: [{value: 0, width: 1, color: "#808080"}],
+            labels: {style: {color: "#ffffff", fontSize: "10px"}}
+        },
+        tooltip: {headerFormat: "", pointFormat: "Contacts: {point.y}"},
+        plotOptions: {
+            columnrange: {dataLabels: {enabled: !1}},
+            area: {
+                fillColor: {
+                    linearGradient: {x1: 0, y1: 0, x2: 0, y2: 1},
+                    stops: [[0, "#41667c"], [1, Highcharts.Color("#41667c").setOpacity(0).get("rgba")]]
+                },
+                lineColor: "#64bef1",
+                lineWidth: 1,
+                marker: {enabled: !1},
+                shadow: !1,
+                states: {hover: {lineWidth: 1}},
+                threshold: null
+            },
+            column: {
+                borderWidth: 0,
+                pointWidth: 35,
+                shadow: !1,
+                threshold: null,
+                dataLabels: {
+                    enabled: !0,
+                    style: {color: "#a4a1a1", fontWeight: "normal", fontSize: "10px"},
+                    formatter: function () {
+                        if (this.y > 0) {
+                            return this.y;
+                        }
+                    }
+                }
+            }
+        },
+        series: [{
+            showInLegend: !1,
+            type: "column",
+            name: "Contacts",
+            data: contactsData,
+            color: {
+                linearGradient: {x1: 0, y1: 0, x2: 0, y2: 1},
+                stops: [[0, Highcharts.Color("#64bef1").setOpacity(.6).get("rgba")], [1, Highcharts.Color("#64bef1").setOpacity(.2).get("rgba")]]
+            }
+        }]
+    });
+
+    $("#thirty").highcharts({
+        chart: {
+            backgroundColor: "#282727",
+            marginBottom: 45,
+            marginTop: 70
+        },
+        legend: {
+            borderWidth: 0,
+            itemStyle: {
+                color: "#ffffff",
+                textDecoration: "none",
+                textTransform: "uppercase"
+            },
+            itemHoverStyle: {
+                color: "#ffffff",
+                textDecoration: "underline"
+            },
+            align: "left",
+            verticalAlign: "top",
+            layout: "horizontal",
+            x: -10,
+            y: 20
+        },
+        title: {
+            text: "Aircraft seen",
+            align: "left",
+            x: 0,
+            style: {
+                color: "#FFFFFF"
+            }
+        },
+        subtitle: {
+            text: 'Last 30 days',
+            useHTML: !0,
+            align: "right",
+            x: -15,
+            y: 15,
+            style: {
+                color: "#6D6D6D"
+            }
+        },
+        xAxis: {
+            title: {
+                enabled: !1,
+                text: "Date",
+                style: {
+                    color: "#a4a1a1",
+                    fontWeight: "normal"
+                }
+            },
+            categories: monthlyCategories,
+            labels: {
+                style: {
+                    color: "#ffffff",
+                    fontSize: "10px"
+                }
+            }
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: "Aircraft",
+                style: {
+                    color: "#a4a1a1",
+                    fontWeight: "normal"
+                },
+                align: "high",
+                offset: 0,
+                rotation: 0,
+                x: 8,
+                y: -15
+            },
+            gridLineWidth: 1,
+            gridLineColor: "#3e3d3d",
+            minorGridLineColor: "#3e3d3d",
+            plotLines: [{
+                value: 0,
+                width: 1,
+                color: "#808080"
+            }],
+            labels: {
+                style: {
+                    color: "#ffffff",
+                    fontSize: "10px"
+                }
+            }
+        },
+        tooltip: {
+            headerFormat: "",
+            pointFormat: "{series.name}: {point.y}"
+        },
+        plotOptions: {
+            columnrange: {
+                dataLabels: {
+                    enabled: !1
+                }
+            },
+            area: {
+                fillColor: {
+                    linearGradient: {
+                        x1: 0,
+                        y1: 0,
+                        x2: 0,
+                        y2: 1
+                    },
+                    stops: [[0, "#41667c"], [1, Highcharts.Color("#41667c").setOpacity(0).get("rgba")]]
+                },
+                lineColor: "#64bef1",
+                lineWidth: 1,
+                marker: {
+                    enabled: !1
+                },
+                shadow: !1,
+                states: {
+                    hover: {
+                        lineWidth: 1
+                    }
+                },
+                threshold: null
+            },
+            column: {
+                borderWidth: 0,
+                pointWidth: 20,
+                shadow: false,
+                threshold: null,
+                dataLabels: {
+                    enabled: !0,
+                    style: {
+                        color: "#a4a1a1",
+                        fontWeight: "normal",
+                        fontSize: "10px",
+                        strokeWidth: "0px"
+                    },
+                    formatter: function() {
+                        if (this.y > 0) {
+                            return this.y;
+                        }
+                    }
+                }
+            }
+        },
+        series: [{
+            showInLegend: !1,
+            type: "column",
+            name: "Aircraft",
+            data: monthlyAircraft,
+            color: {
+                linearGradient: {
+                    x1: 0,
+                    y1: 0,
+                    x2: 0,
+                    y2: 1
+                },
+                stops: [[0, Highcharts.Color("#64bef1").setOpacity(0.6).get("rgba")], [1, Highcharts.Color("#64bef1").setOpacity(0.2).get("rgba")]]
+            }
+        }, {
+            showInLegend: !1,
+            type: "column",
+            name: "Positions",
+            data: monthlyPositions,
+            color: {
+                linearGradient: {
+                    x1: 0,
+                    y1: 0,
+                    x2: 0,
+                    y2: 1
+                },
+                stops: [[0, Highcharts.Color("#f8c023").setOpacity(0.6).get("rgba")], [1, Highcharts.Color("#f8c023").setOpacity(0.2).get("rgba")]]
+            }
+        }]
+    });
+
 });
+

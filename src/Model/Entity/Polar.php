@@ -48,8 +48,8 @@ class Polar extends Entity {
     ];
 
 
-    public function recordPolarPlot($bucket, $compDir) {
-        $this->polar[$bucket][$compDir]['hits']++;
+    public function recordPolarPlot($bucket, $compDir, $flightHits) {
+        $this->polar[$bucket][$compDir]['hits'] += $flightHits;
     }
 
     public function getPolarPlot() {

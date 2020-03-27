@@ -7,43 +7,43 @@ use Cake\I18n\FrozenTime;
 /**
  * Class Flight
  * @package App\Model\Entity
- * @property int FlightID
- * @property  int SessionID
- * @property  int AircraftID
- * @property  Cake\I18n\FrozenTime StartTime
- * @property  Cake\I18n\FrozenTime EndTime
- * @property  string Callsign
- * @property  int NumPosMsgRec
- * @property  int NumADSBMsgRec
- * @property  int NumModeSMsgRec
- * @property  int NumIDMsgRec
- * @property  int NumSurPosMsgRec
- * @property  int NumAirPosMsgRec
- * @property  int NumAirVelMsgRec
- * @property  int NumSurAltMsgRec
- * @property  int NumSurIDMsgRec
- * @property  int NumAirToAirMsgRec
- * @property  int NumAirCallRepMsgRec
- * @property  bool FirstIsOnGround
- * @property  bool LastIsOnGround
- * @property  float FirstLat
- * @property  float LastLat
- * @property  float FirstLon
- * @property  float LastLon
- * @property  float FirstGroundSpeed
- * @property  float LastGroundSpeed
- * @property  int FirstAltitude
- * @property  int LastAltitude
- * @property  int FirstVerticalRate
- * @property  int LastVerticalRate
- * @property  float FirstTrack
- * @property  float LastTrack
- * @property  int FirstSquawk
- * @property  int LastSquawk
- * @property  bool HadAlert
- * @property  bool HadEmergency
- * @property  bool HadSPI
- * @property  string UserNotes
+ * @property int $FlightID
+ * @property  int $SessionID
+ * @property  int $AircraftID
+ * @property  FrozenTime $StartTime
+ * @property  FrozenTime $EndTime
+ * @property  string $Callsign
+ * @property  int $NumPosMsgRec
+ * @property  int $NumADSBMsgRec
+ * @property  int $NumModeSMsgRec
+ * @property  int $NumIDMsgRec
+ * @property  int $NumSurPosMsgRec
+ * @property  int $NumAirPosMsgRec
+ * @property  int $NumAirVelMsgRec
+ * @property  int $NumSurAltMsgRec
+ * @property  int $NumSurIDMsgRec
+ * @property  int $NumAirToAirMsgRec
+ * @property  int $NumAirCallRepMsgRec
+ * @property  bool $FirstIsOnGround
+ * @property  bool $LastIsOnGround
+ * @property  float $FirstLat
+ * @property  float $LastLat
+ * @property  float $FirstLon
+ * @property  float $LastLon
+ * @property  float $FirstGroundSpeed
+ * @property  float $LastGroundSpeed
+ * @property  int $FirstAltitude
+ * @property  int $LastAltitude
+ * @property  int $FirstVerticalRate
+ * @property  int $LastVerticalRate
+ * @property  float $FirstTrack
+ * @property  float $LastTrack
+ * @property  int $FirstSquawk
+ * @property  int $LastSquawk
+ * @property  bool $HadAlert
+ * @property  bool $HadEmergency
+ * @property  bool $HadSPI
+ * @property  string $UserNotes
  */
 class Flight extends Entity
 {
@@ -142,7 +142,7 @@ class Flight extends Entity
     }
 
     /**
-     * @param $distance
+     * @param int|float $distance
      * @return int|string
      */
     public function getDistanceBucket($distance) {
@@ -155,6 +155,30 @@ class Flight extends Entity
         } else {
             return '200+';
         }
+    }
+
+    public function getChartBucket($distance) {
+        switch ($distance) {
+            case ($distance < 50):
+                $return = 0;
+                break;
+            case ($distance >= 50 && $distance < 100):
+                $return = 1;
+                break;
+            case ($distance >= 100 && $distance < 150):
+                $return = 2;
+                break;
+            case ($distance >= 150 && $distance < 200):
+                $return = 3;
+                break;
+            case ($distance >= 200):
+                $return = 4;
+                break;
+            default:
+                var_dump($distance);
+                $return = 10;
+        }
+        return $return;
     }
 
 }
